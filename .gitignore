@@ -1,0 +1,15 @@
+# Big raw dataset (exceeds GitHub size limit and is stored locally)
+data/accepted_2007_to_2018Q4.csv
+
+# Python caches and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# IDE files
+.vscode/
+.idea/
