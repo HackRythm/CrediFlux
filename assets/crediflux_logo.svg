@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d1f" />
+      <stop offset="100%" stop-color="#04060f" />
+    </linearGradient>
+    
+    <!-- Accent Gradient -->
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f2fe" />
+      <stop offset="50%" stop-color="#4facfe" />
+      <stop offset="100%" stop-color="#00cdac" />
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background Card -->
+  <rect width="100%" height="100%" rx="16" fill="url(#bgGrad)" />
+
+  <!-- Logo Icon -->
+  <g transform="translate(80, 75)" filter="url(#glow)">
+    <!-- Outer Shield representing credit security -->
+    <path d="M40,10 L110,10 C110,10 140,40 140,80 C140,120 100,140 75,150 C50,140 10,120 10,80 C10,40 40,10 40,10 Z" fill="none" stroke="url(#accentGrad)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+    
+    <!-- Inner Dynamic Trend Line representing flow/prediction -->
+    <path d="M35,95 L60,70 L90,105 L115,50" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M100,50 L115,50 L115,65" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="115" cy="50" r="4" fill="#00f2fe" />
+  </g>
+
+  <!-- Logo Text -->
+  <text x="260" y="152" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="800" font-size="76" fill="#ffffff" letter-spacing="2">
+    Credi<tspan fill="url(#accentGrad)">Flux</tspan>
+  </text>
+  <text x="265" y="196" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="600" font-size="20" fill="#718096" letter-spacing="4">
+    CREDIT RISK ASSESSMENT &amp; ML
+  </text>
+</svg>
