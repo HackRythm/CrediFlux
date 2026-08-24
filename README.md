@@ -23,7 +23,10 @@ CrediFlux/
 │   └── crediflux_50k.csv             # Stratified representative sample (50,000 rows)
 │
 ├── notebooks/
-│   └── 01_create_50k_dataset.ipynb   # Dataset sampling and verification notebook
+│   ├── 01_create_50k_dataset.ipynb   # Dataset sampling and verification notebook
+│   ├── 01_create_50k_dataset.md      # Notebook 01 documentation
+│   ├── 02_linear_regression_baseline.ipynb # Simple Linear Regression baseline notebook
+│   └── 02_linear_regression_baseline.md # Notebook 02 documentation
 │
 ├── .gitignore                        # Git exclusions (ignores raw dataset and caches)
 └── README.md                         # Project documentation (this file)
@@ -40,11 +43,17 @@ Ensure you have Python 3.13+ installed. Install the required data science packag
 pip install pandas numpy matplotlib seaborn scikit-learn jupyter
 ```
 
-### 2. Running the Sampling Notebook
+### 2. Running the Notebooks
 To execute the data sampling notebook and regenerate the 50K sample:
 
 ```bash
 jupyter nbconvert --to notebook --execute --inplace notebooks/01_create_50k_dataset.ipynb
+```
+
+To execute the baseline Linear Regression model:
+
+```bash
+jupyter nbconvert --to notebook --execute --inplace notebooks/02_linear_regression_baseline.ipynb
 ```
 
 ---
@@ -80,24 +89,46 @@ The stratified sampling retains class percentages down to three decimal places:
 | **Does not meet credit policy: Charged Off** | 761 | 0.034% | 17 | 0.034% |
 | **Default** | 40 | 0.002% | 1 | 0.002% |
 | **Missing** | 33 | 0.001% | 1 | 0.002% |
+---
+
+## 📉 Mid-Semester Phase: Simple Linear Regression Baseline
+
+We established an initial machine learning baseline using a simple **Linear Regression** model to predict credit default. The model serves as a benchmark and was trained on the 12 primary numerical features available at loan origination.
+
+### 📊 Model Evaluation Summary
+
+#### Regression Metrics
+- **Mean Absolute Error (MAE):** 0.2952
+- **Mean Squared Error (MSE):** 0.1469
+- **Root Mean Squared Error (RMSE):** 0.3833
+- **R² Score:** 0.0806 (8.1% variance explained)
+
+#### Classification Metrics (Threshold = 0.5)
+- **Accuracy:** 0.7999 (~80.0%)
+- **Precision:** 0.4706 (~47.1%)
+- **Recall:** 0.0202 (~2.0%)
+- **F1-Score:** 0.0387 (~3.9%)
+
+### 💡 Baseline Interpretation
+Applying Linear Regression to a binary classification task functions as a Linear Probability Model. However, due to class imbalance (~20% default rate), model outputs skew towards 0. A standard 0.5 threshold causes the model to classify almost all accounts as non-default, yielding high accuracy but an unusable **Recall of 2%**. This highlights the necessity of classification models (e.g., Logistic Regression or Random Forests) for the final credit risk pipeline.
 
 ---
 
 ## 🛠️ Roadmap & Future Phases
 
-- [x] **Phase 1: Stratified Sampling & Validation (Current)**
+- [x] **Phase 1: Stratified Sampling & Validation**
   * Sample 50,000 representative records.
   * Verify target and numerical distribution similarity.
   * Establish reproducible seed structure.
-- [ ] **Phase 2: Data Preprocessing & Cleaning**
-  * Target variable binarization (mapping `loan_status` categories to Default/Non-Default).
-  * Missing value imputation strategies.
+- [x] **Phase 2: Simple Linear Regression Baseline**
+  * Define target mapping (`Fully Paid` $\rightarrow$ 0, `Charged Off` $\rightarrow$ 1).
+  * Feature scaling and median imputation.
+  * Train and evaluate a baseline Linear Regression model.
+  * Produce error visualizations and diagnostic plots.
+- [ ] **Phase 3: Data Preprocessing, Cleaning & EDA**
   * Categorical feature encoding (One-Hot / Target encoding).
   * Outlier detection and treatment.
-- [ ] **Phase 3: Exploratory Data Analysis (EDA) & Feature Selection**
-  * Correlation analysis, distribution plotting, and feature importance analysis.
-  * Multicollinearity detection (VIF analysis).
-- [ ] **Phase 4: ML Model Training & Evaluation**
-  * Benchmark models (Logistic Regression, Random Forest, XGBoost).
-  * Hyperparameter tuning using Grid/Randomized Search.
-  * Evaluation metrics focusing on Recall, F1-Score, and ROC-AUC.
+  * VIF multicollinearity checks and feature selection.
+- [ ] **Phase 4: Advanced ML Model Training & Comparison**
+  * Train **Logistic Regression** and **Random Forest** models.
+  * Adjust decision thresholds to optimize Recall and F1-score.
