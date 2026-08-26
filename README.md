@@ -16,20 +16,30 @@ The project follows a clean, modular structure:
 CrediFlux/
 │
 ├── assets/
-│   └── crediflux_logo.svg            # Project branding logo
+│   ├── crediflux_logo.svg                  # Project branding logo
+│   ├── baseline_diagnostic_plots.png       # Combined 3-panel baseline diagnostic figure
+│   ├── actual_vs_predicted.png             # Actual vs. Predicted strip plot
+│   ├── residuals.png                       # Residual plot
+│   └── confusion_matrix.png               # Confusion matrix heatmap
 │
 ├── data/
-│   ├── accepted_2007_to_2018Q4.csv   # Raw source dataset (~2.26M rows, locally stored)
-│   └── crediflux_50k.csv             # Stratified representative sample (50,000 rows)
+│   ├── accepted_2007_to_2018Q4.csv         # Raw source dataset (~2.26M rows, locally stored)
+│   └── crediflux_50k.csv                   # Stratified representative sample (50,000 rows)
 │
 ├── notebooks/
-│   ├── 01_create_50k_dataset.ipynb   # Dataset sampling and verification notebook
-│   ├── 01_create_50k_dataset.md      # Notebook 01 documentation
+│   ├── 01_create_50k_dataset.ipynb         # Dataset sampling and verification notebook
+│   ├── 01_create_50k_dataset.md            # Notebook 01 documentation
 │   ├── 02_linear_regression_baseline.ipynb # Simple Linear Regression baseline notebook
-│   └── 02_linear_regression_baseline.md # Notebook 02 documentation
+│   └── 02_linear_regression_baseline.md    # Notebook 02 documentation
 │
-├── .gitignore                        # Git exclusions (ignores raw dataset and caches)
-└── README.md                         # Project documentation (this file)
+├── scripts/
+│   └── train_baseline.py                   # Standalone script: trains baseline model & saves plots
+│
+├── tests/
+│   └── test_pipeline.py                    # Unit tests for dataset and baseline pipeline
+│
+├── .gitignore                              # Git exclusions (ignores raw dataset and caches)
+└── README.md                               # Project documentation (this file)
 ```
 
 ---
@@ -43,7 +53,16 @@ Ensure you have Python 3.13+ installed. Install the required data science packag
 pip install pandas numpy matplotlib seaborn scikit-learn jupyter
 ```
 
-### 2. Running the Notebooks
+### 2. Dataset
+The raw Lending Club dataset (`accepted_2007_to_2018Q4.csv`, ~1.67 GB) is **not** committed to this repository (excluded via `.gitignore`). Download it from Kaggle:
+
+> **[Lending Club Loan Data — Kaggle](https://www.kaggle.com/datasets/wordsforthewise/lending-club)**
+
+Place the downloaded CSV in the `data/` directory before running any notebooks or scripts.
+
+The stratified 50 K sample (`data/crediflux_50k.csv`) **is** committed and ready to use.
+
+### 3. Running the Notebooks
 To execute the data sampling notebook and regenerate the 50K sample:
 
 ```bash
@@ -55,6 +74,22 @@ To execute the baseline Linear Regression model:
 ```bash
 jupyter nbconvert --to notebook --execute --inplace notebooks/02_linear_regression_baseline.ipynb
 ```
+
+### 4. Running the Standalone Baseline Script
+Train the model and regenerate all diagnostic plots in `assets/` without Jupyter:
+
+```bash
+python scripts/train_baseline.py
+```
+
+### 5. Running Unit Tests
+Validate dataset integrity and the baseline ML pipeline:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+All **9 tests** should pass.
 
 ---
 
@@ -108,6 +143,10 @@ We established an initial machine learning baseline using a simple **Linear Regr
 - **Precision:** 0.4706 (~47.1%)
 - **Recall:** 0.0202 (~2.0%)
 - **F1-Score:** 0.0387 (~3.9%)
+
+### 📈 Diagnostic Visualisations
+
+![Baseline Diagnostic Plots](assets/baseline_diagnostic_plots.png)
 
 ### 💡 Baseline Interpretation
 Applying Linear Regression to a binary classification task functions as a Linear Probability Model. However, due to class imbalance (~20% default rate), model outputs skew towards 0. A standard 0.5 threshold causes the model to classify almost all accounts as non-default, yielding high accuracy but an unusable **Recall of 2%**. This highlights the necessity of classification models (e.g., Logistic Regression or Random Forests) for the final credit risk pipeline.
