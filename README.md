@@ -124,6 +124,7 @@ The stratified sampling retains class percentages down to three decimal places:
 | **Does not meet credit policy: Charged Off** | 761 | 0.034% | 17 | 0.034% |
 | **Default** | 40 | 0.002% | 1 | 0.002% |
 | **Missing** | 33 | 0.001% | 1 | 0.002% |
+
 ---
 
 ## 📉 Mid-Semester Phase: Simple Linear Regression Baseline
