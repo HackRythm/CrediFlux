@@ -56,16 +56,16 @@ Transform the raw, resolved-loan dataset (`29,754` records) into a clean, highly
 | **1. Raw Origination Columns** | 22 | 12 numerical + 8 categorical + 2 date columns |
 | **2. Engineered Domain Features** | +7 | `fico_score`, `credit_history_years`, `installment_to_income`, `loan_to_income`, `open_to_total_acc_ratio`, `revol_util_over_100`, `has_delinq_2yrs` |
 | **3. Log Transforms** | +2 | `log_annual_inc`, `log_revol_bal` |
-| **4. Categorical Encodings** | +16 | `sub_grade_num`, `term_60m`, `is_joint_app`, `emp_length_num`, `emp_length_missing`, 3 home dummies, 2 ver dummies, 8 purpose dummies |
+| **4. Categorical Encodings** | +22 | `sub_grade_num`, `term_60m`, `is_joint_app`, `emp_length_num`, `emp_length_missing`, home ownership dummies, verification status dummies, purpose dummies |
 | **5. Excluded / Redundant** | -18 | `fico_range_low`, `fico_range_high`, `grade`, `issue_d`, `earliest_cr_line`, raw skewed columns, raw text categoricals |
-| **Final Modeling Matrix** | **29** | **Strictly numeric, clean, leakage-free feature matrix** |
+| **Final Modeling Matrix** | **35** | **Strictly numeric, clean, leakage-free feature matrix** |
 
 ---
 
 ## 📁 Exported Modeling-Ready Artifacts
 
 The final processed splits are saved in `data/` for direct consumption:
-- [`data/X_train_processed.csv`](file:///d:/SEM_3/23AID205-%20AI%20&%20ML/CrediFlux/data/X_train_processed.csv) (`23,803` rows $\times$ `29` columns)
-- [`data/X_test_processed.csv`](file:///d:/SEM_3/23AID205-%20AI%20&%20ML/CrediFlux/data/X_test_processed.csv) (`5,951` rows $\times$ `29` columns)
+- [`data/X_train_processed.csv`](file:///d:/SEM_3/23AID205-%20AI%20&%20ML/CrediFlux/data/X_train_processed.csv) (`23,803` rows $\times$ `35` columns)
+- [`data/X_test_processed.csv`](file:///d:/SEM_3/23AID205-%20AI%20&%20ML/CrediFlux/data/X_test_processed.csv) (`5,951` rows $\times$ `35` columns)
 - [`data/y_train.csv`](file:///d:/SEM_3/23AID205-%20AI%20&%20ML/CrediFlux/data/y_train.csv) (`23,803` labels)
 - [`data/y_test.csv`](file:///d:/SEM_3/23AID205-%20AI%20&%20ML/CrediFlux/data/y_test.csv) (`5,951` labels)

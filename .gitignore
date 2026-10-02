@@ -10,6 +10,21 @@ __pycache__/
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
 
+# Environment files and credentials
+.env
+*.env
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Scratch and temporary directories
+scratch/
+tmp/
+temp/
+
 # IDE files
 .vscode/
 .idea/
