@@ -134,6 +134,57 @@ While Random Forest achieved higher overall accuracy (0.7701) and precision (0.3
 
 ---
 
+## 💻 Full-Stack Production Application (FastAPI + React)
+
+CrediFlux includes a production-grade full-stack web application designed for credit risk assessment, model governance, and interactive portfolio evaluation:
+
+* **Backend (`/backend`)**: FastAPI, Pydantic v2 validation, Scikit-Learn 1.7.2 inference, Uvicorn server, full CORS support, and comprehensive pytest test suite (16 tests).
+* **Frontend (`/frontend`)**: React 18, Vite 5, TypeScript 5, custom fintech dark-navy styling (`#0B1220`, `#00D4AA` teal), Recharts visualization, Lucide icons, and Vitest test suite (11 tests).
+* **Governance Audit (`docs/AUDIT.md`)**: Thorough 223-line model feasibility report establishing strict underwriting boundary checks.
+
+### Architecture & Key Modules
+
+1. **System Overview & Verified Model Catalog (`/`)**: Real-time status of serialized classifiers (Logistic Regression, Random Forest) and baseline regressor with exact Phase 10 test metrics.
+2. **Prospective Borrower Intake (`/assess`)**: Pre-underwriting boundary check. Validates intake and credit bureau inputs, detects missing post-underwriting features (`sub_grade_num`, `int_rate`, `installment`, `verification_status`), and returns an honest, auditable rejection explaining circular data leakage.
+3. **Retrospective Scoring Engine (`/retrospective`)**:
+   - **Single Historical Loan**: Scores complete 35-feature historical records with calibrated default probabilities, risk bands (Low, Moderate, Elevated, High), and signed feature contributions (log-odds).
+   - **Batch CSV Evaluation**: Upload loan portfolio CSVs, process full pipeline inference, and view aggregate distributions with loan-level results.
+4. **Model Insights & Accuracy Paradox (`/insights`)**: Deep analysis of why 77% accuracy in Random Forest is dangerous in credit risk compared to 61% recall in Logistic Regression.
+5. **Phase 0 Feasibility Audit (`/audit`)**: Interactive matrix classifying all 35 features into direct applicant, derivable, and post-underwriting fields.
+
+### Launching the Application
+
+#### 1. Backend (FastAPI)
+```bash
+# Using Python with Scikit-learn 1.7.2 and FastAPI installed:
+python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --reload
+```
+API Documentation will be live at: `http://localhost:8000/docs`
+
+#### 2. Frontend (React + Vite)
+```bash
+cd frontend
+npm install
+npm run dev
+```
+Open your browser at `http://localhost:5173`.
+
+### Running All Test Suites
+
+```bash
+# 1. Original Dataset & Baseline Pipeline Tests (9 passed)
+pytest tests/test_pipeline.py -v
+
+# 2. FastAPI Backend Test Suite (16 passed)
+pytest backend/tests -v
+
+# 3. React Frontend Vitest Test Suite (11 passed)
+cd frontend
+npm test
+```
+
+---
+
 ## 🛡️ Data Leakage Audit & Controls
 
 To guarantee production-grade integrity, strict data leakage controls were implemented:
