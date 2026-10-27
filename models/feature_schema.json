@@ -1,0 +1,101 @@
+{
+  "description": "CrediFlux model feature schema — exact column order expected by saved models.",
+  "feature_count": 35,
+  "features": [
+    "loan_amnt",
+    "installment",
+    "int_rate",
+    "dti",
+    "fico_score",
+    "revol_util",
+    "open_acc",
+    "total_acc",
+    "delinq_2yrs",
+    "log_annual_inc",
+    "log_revol_bal",
+    "credit_history_years",
+    "installment_to_income",
+    "loan_to_income",
+    "open_to_total_acc_ratio",
+    "revol_util_over_100",
+    "has_delinq_2yrs",
+    "sub_grade_num",
+    "term_60m",
+    "is_joint_app",
+    "emp_length_num",
+    "emp_length_missing",
+    "home_RENT",
+    "home_OWN",
+    "home_OTHER",
+    "ver_Source_Verified",
+    "ver_Verified",
+    "purpose_debt_consolidation",
+    "purpose_credit_card",
+    "purpose_home_improvement",
+    "purpose_small_business",
+    "purpose_major_purchase",
+    "purpose_medical",
+    "purpose_car",
+    "purpose_other"
+  ],
+  "target": {
+    "name": "target",
+    "mapping": {
+      "Fully Paid": 0,
+      "Charged Off": 1
+    },
+    "positive_class": "Charged Off (Default)",
+    "predict_proba_index": 1
+  },
+  "models": {
+    "logistic_regression": {
+      "file": "logistic_regression_pipeline.joblib",
+      "type": "Pipeline([StandardScaler, LogisticRegression])",
+      "hyperparameters": {
+        "C": 10,
+        "max_iter": 1000,
+        "class_weight": "balanced",
+        "solver": "lbfgs",
+        "random_state": 42
+      },
+      "note": "StandardScaler is embedded in the pipeline; no separate scaler needed."
+    },
+    "random_forest": {
+      "file": "random_forest.joblib",
+      "type": "RandomForestClassifier",
+      "hyperparameters": {
+        "n_estimators": 300,
+        "max_depth": 20,
+        "min_samples_leaf": 5,
+        "max_features": "sqrt",
+        "class_weight": "balanced",
+        "random_state": 42
+      },
+      "note": "Accepts unscaled processed features directly."
+    }
+  },
+  "preprocessing_stats": {
+    "note": "These statistics were learned on X_train during feature engineering (notebook 04). They are required to transform raw borrower inputs into the 35-feature representation.",
+    "dti_median": 17.63,
+    "revol_util_median": 52.4,
+    "annual_inc_min": 3000.0,
+    "dti_cap": 100.0,
+    "revol_util_cap": 150.0,
+    "annual_inc_cap": 550396.0,
+    "revol_bal_cap": 277728.27,
+    "emp_length_median": 6.0
+  },
+  "training_data": {
+    "train_samples": 23803,
+    "test_samples": 5951,
+    "default_rate_train": 0.1996,
+    "default_rate_test": 0.1996
+  },
+  "environment": {
+    "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:09:58) [MSC v.1929 64 bit (AMD64)]",
+    "scikit_learn": "1.7.2",
+    "pandas": "2.3.3",
+    "numpy": "2.3.5",
+    "joblib": "1.5.2"
+  }
+}
