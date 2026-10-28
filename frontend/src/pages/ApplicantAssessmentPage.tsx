@@ -114,15 +114,15 @@ export const ApplicantAssessmentPage: React.FC = () => {
   return (
     <div>
       {/* Header */}
-      <div style={{ marginBottom: '1.25rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.25rem' }}>
+      <div style={{ marginBottom: '1.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.35rem' }}>
           <span className="badge badge-high">Pre-Underwriting Boundary</span>
           <span className="badge badge-elevated">Governance Check</span>
         </div>
-        <h1 style={{ fontSize: '1.625rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.03em' }}>
+        <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.025em' }}>
           Prospective Borrower Intake Assessment
         </h1>
-        <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)' }}>
+        <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
           Submit prospective applicant financial parameters to test the underwriting boundary filter.
         </p>
       </div>
@@ -522,22 +522,23 @@ export const ApplicantAssessmentPage: React.FC = () => {
               </p>
 
               {/* Missing Fields */}
-              <div style={{ background: 'var(--bg-input)', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '0.75rem', marginBottom: '0.875rem' }}>
-                <div style={{ fontSize: '0.6875rem', fontWeight: 700, color: 'var(--status-elevated)', textTransform: 'uppercase', marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                  <HelpCircle size={12} />
+              <div style={{ background: 'var(--bg-surface-elevated)', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '0.75rem', marginBottom: '0.875rem' }}>
+                <div style={{ fontSize: '0.6875rem', fontWeight: 600, color: 'var(--status-elevated)', textTransform: 'uppercase', marginBottom: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                  <HelpCircle size={13} />
                   <span>Missing Post-Underwriting Features ({result.missing_features.length})</span>
                 </div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.3rem' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
                   {result.missing_features.map((feat) => (
                     <span
                       key={feat}
                       style={{
-                        background: 'rgba(255, 71, 87, 0.12)',
-                        border: '1px solid rgba(255, 71, 87, 0.25)',
+                        background: 'var(--status-high-bg)',
+                        border: '1px solid var(--status-high-border)',
                         color: 'var(--status-high)',
                         fontSize: '0.6875rem',
                         fontFamily: 'var(--font-mono)',
-                        padding: '0.15rem 0.4rem',
+                        fontWeight: 500,
+                        padding: '0.2rem 0.45rem',
                         borderRadius: '3px',
                       }}
                     >
@@ -548,7 +549,7 @@ export const ApplicantAssessmentPage: React.FC = () => {
               </div>
 
               <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '0.75rem' }}>
-                <div style={{ fontSize: '0.6875rem', fontWeight: 700, color: 'var(--accent-teal)', textTransform: 'uppercase', marginBottom: '0.25rem' }}>
+                <div style={{ fontSize: '0.6875rem', fontWeight: 600, color: 'var(--accent-teal)', textTransform: 'uppercase', marginBottom: '0.25rem' }}>
                   Recommended Action
                 </div>
                 <p style={{ fontSize: '0.75rem', color: 'var(--text-primary)', lineHeight: 1.5, marginBottom: '0.75rem' }}>
@@ -558,8 +559,8 @@ export const ApplicantAssessmentPage: React.FC = () => {
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
                   <Link
                     to="/retrospective"
-                    className="btn btn-primary"
-                    style={{ fontSize: '0.75rem', padding: '0.4rem 0.75rem', flex: 1 }}
+                    className="btn btn-teal"
+                    style={{ fontSize: '0.75rem', padding: '0.45rem 0.75rem', flex: 1 }}
                   >
                     <span>Go to Retrospective Scoring</span>
                     <ExternalLink size={12} />
@@ -567,7 +568,7 @@ export const ApplicantAssessmentPage: React.FC = () => {
                   <Link
                     to="/audit"
                     className="btn btn-secondary"
-                    style={{ fontSize: '0.75rem', padding: '0.4rem 0.75rem' }}
+                    style={{ fontSize: '0.75rem', padding: '0.45rem 0.75rem' }}
                   >
                     <span>Audit Matrix</span>
                   </Link>
@@ -575,12 +576,12 @@ export const ApplicantAssessmentPage: React.FC = () => {
               </div>
             </div>
           ) : (
-            <div className="card" style={{ borderStyle: 'dashed', textAlign: 'center', padding: '2.5rem 1rem' }}>
-              <ShieldAlert size={28} color="var(--accent-teal)" style={{ margin: '0 auto 0.75rem', opacity: 0.7 }} />
+            <div className="card" style={{ borderStyle: 'dashed', textAlign: 'center', padding: '3rem 1.5rem', background: 'var(--bg-surface)' }}>
+              <ShieldAlert size={28} color="var(--accent-navy)" style={{ margin: '0 auto 0.75rem', opacity: 0.6 }} />
               <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>
                 Boundary Verification Ready
               </div>
-              <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', maxWidth: '280px', margin: '0 auto', lineHeight: 1.5 }}>
+              <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', maxWidth: '280px', margin: '0 auto', lineHeight: 1.5 }}>
                 Click "Run Pre-Underwriting Risk Assessment" to test the 35-feature schema check.
               </p>
             </div>
