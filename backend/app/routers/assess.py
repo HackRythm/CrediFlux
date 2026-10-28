@@ -7,8 +7,9 @@ Endpoints:
 """
 
 import io
-from typing import Union, List
-from fastapi import APIRouter, HTTPException, UploadFile, File, Query, status
+from typing import Union, List, Optional
+from fastapi import APIRouter, HTTPException, UploadFile, File, Form, Query, status
+import numpy as np
 import pandas as pd
 
 from backend.app.schemas import (
@@ -123,12 +124,20 @@ def assess_retrospective_record(
 )
 async def assess_retrospective_batch_csv(
     file: UploadFile = File(..., description="CSV file containing historical loan records"),
-    model_name: str = Query("Logistic Regression", pattern="^(Logistic Regression|Random Forest)$")
+    model_name: Optional[str] = Form(None),
+    model_name_query: Optional[str] = Query(None, alias="model_name")
 ) -> RetrospectiveBatchResponse:
     """
     Upload a CSV file containing historical loan records (either the 35 pre-engineered features
     or full origination records) to be scored in batch by the chosen serialized model.
     """
+    chosen_model = model_name or model_name_query or "Logistic Regression"
+    if chosen_model not in ("Logistic Regression", "Random Forest"):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="model_name must be 'Logistic Regression' or 'Random Forest'"
+        )
+
     if not file.filename.endswith(".csv"):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -166,7 +175,7 @@ async def assess_retrospective_batch_csv(
                 row_dict = row.to_dict()
                 row_features = transform_historical_loan_to_dataframe(row_dict)
 
-            score_res = score_record(row_features, model_name=model_name)
+            score_res = score_record(row_features, model_name=chosen_model)
             prob = score_res["default_probability"]
             default_probs.append(prob)
 
@@ -191,7 +200,7 @@ async def assess_retrospective_batch_csv(
 
     return RetrospectiveBatchResponse(
         status="ok",
-        model=model_name,
+        model=chosen_model,
         total_records=len(df_uploaded),
         successful_scores=successful,
         failed_records=len(df_uploaded) - successful,

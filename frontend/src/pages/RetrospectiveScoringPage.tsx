@@ -171,15 +171,15 @@ export const RetrospectiveScoringPage: React.FC = () => {
 
   return (
     <div>
-      <div style={{ marginBottom: '2rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.375rem' }}>
+      <div style={{ marginBottom: '1.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.35rem' }}>
           <span className="badge badge-low">Operational ML Engine</span>
           <span className="badge badge-moderate">35 Engineered Features</span>
         </div>
-        <h1 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.03em', marginBottom: '0.5rem' }}>
+        <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.025em' }}>
           Retrospective Historical Scoring Engine
         </h1>
-        <p style={{ fontSize: '0.9375rem', color: 'var(--text-secondary)', maxWidth: '850px', lineHeight: 1.6 }}>
+        <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', marginTop: '0.2rem', lineHeight: 1.5 }}>
           Evaluate historical loans where underwriting and post-origination terms (subgrade, interest rate, installment) are complete.
           Scores are generated directly by the verified serialized models using full feature pipelines.
         </p>
@@ -259,11 +259,11 @@ export const RetrospectiveScoringPage: React.FC = () => {
 
             <form onSubmit={handleSingleSubmit}>
               {/* Model Choice */}
-              <div style={{ background: 'var(--bg-input)', padding: '0.875rem', borderRadius: '0.375rem', border: '1px solid var(--border-color)', marginBottom: '1.25rem' }}>
+              <div style={{ background: 'var(--bg-surface-elevated)', padding: '0.875rem', borderRadius: '0.375rem', border: '1px solid var(--border-color)', marginBottom: '1.25rem' }}>
                 <div className="form-group">
                   <label className="form-label" htmlFor="model_name">
                     <span>Target ML Model</span>
-                    <span className="form-hint">Both models verified on 10k test loans</span>
+                    <span className="form-hint">Both models verified on 5,951 test loans</span>
                   </label>
                   <select
                     id="model_name"
@@ -279,8 +279,8 @@ export const RetrospectiveScoringPage: React.FC = () => {
               </div>
 
               {/* Underwriting Terms (Mandatory) */}
-              <div style={{ marginBottom: '1.25rem', border: '1px solid rgba(0, 212, 170, 0.3)', borderRadius: '0.5rem', padding: '1rem', background: 'rgba(0, 212, 170, 0.03)' }}>
-                <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-teal)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+              <div style={{ marginBottom: '1.25rem', border: '1px solid var(--accent-teal-border)', borderRadius: '0.5rem', padding: '1rem', background: 'var(--accent-teal-subtle)' }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--accent-teal)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
                   <CheckCircle2 size={14} />
                   <span>Lender-Assigned Underwriting Fields</span>
                 </div>
@@ -537,7 +537,7 @@ export const RetrospectiveScoringPage: React.FC = () => {
                 </div>
 
                 {/* Crisp Circular Gauge & Probability Metrics */}
-                <div style={{ background: 'var(--bg-input)', border: '1px solid var(--border-color)', borderRadius: '0.5rem', padding: '1rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-around', gap: '1rem' }}>
+                <div style={{ background: 'var(--bg-surface-elevated)', border: '1px solid var(--border-color)', borderRadius: '0.5rem', padding: '1rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-around', gap: '1rem' }}>
                   {/* SVG Circular Gauge */}
                   <div style={{ position: 'relative', width: '100px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <svg width="100" height="100" style={{ transform: 'rotate(-90deg)' }}>
@@ -545,7 +545,7 @@ export const RetrospectiveScoringPage: React.FC = () => {
                         cx="50"
                         cy="50"
                         r="40"
-                        stroke="rgba(255, 255, 255, 0.08)"
+                        stroke="#E2E8F0"
                         strokeWidth="8"
                         fill="transparent"
                       />
@@ -563,7 +563,7 @@ export const RetrospectiveScoringPage: React.FC = () => {
                       />
                     </svg>
                     <div style={{ position: 'absolute', textAlign: 'center' }}>
-                      <div style={{ fontSize: '1.125rem', fontWeight: 800, color: scoreResult.default_probability > 0.4 ? 'var(--status-high)' : 'var(--accent-teal)', fontVariantNumeric: 'tabular-nums' }}>
+                      <div style={{ fontSize: '1.125rem', fontWeight: 700, fontFamily: 'var(--font-mono)', color: scoreResult.default_probability > 0.4 ? 'var(--status-high)' : 'var(--accent-teal)', fontVariantNumeric: 'tabular-nums' }}>
                         {(scoreResult.default_probability * 100).toFixed(2)}%
                       </div>
                       <div style={{ fontSize: '0.5625rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>Default</div>
@@ -574,15 +574,15 @@ export const RetrospectiveScoringPage: React.FC = () => {
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.375rem', flex: 1 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.25rem' }}>
                       <span style={{ color: 'var(--text-muted)' }}>Repayment Odds:</span>
-                      <span style={{ fontWeight: 700, color: 'var(--accent-teal)' }}>{(scoreResult.repayment_probability * 100).toFixed(2)}%</span>
+                      <span style={{ fontWeight: 600, fontFamily: 'var(--font-mono)', color: 'var(--status-low)' }}>{(scoreResult.repayment_probability * 100).toFixed(2)}%</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.25rem' }}>
                       <span style={{ color: 'var(--text-muted)' }}>Predicted Class:</span>
-                      <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{scoreResult.predicted_label}</span>
+                      <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{scoreResult.predicted_label}</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem' }}>
                       <span style={{ color: 'var(--text-muted)' }}>Decision Cutoff:</span>
-                      <span style={{ color: 'var(--text-secondary)' }}>{(scoreResult.threshold_used * 100).toFixed(0)}%</span>
+                      <span style={{ color: 'var(--text-secondary)', fontFamily: 'var(--font-mono)' }}>{(scoreResult.threshold_used * 100).toFixed(0)}%</span>
                     </div>
                   </div>
                 </div>
@@ -595,7 +595,7 @@ export const RetrospectiveScoringPage: React.FC = () => {
                 {/* Feature Contributions Chart (For LR) */}
                 {scoreResult.feature_contributions && scoreResult.feature_contributions.length > 0 && (
                   <div style={{ marginBottom: '1rem' }}>
-                    <div style={{ fontSize: '0.6875rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '0.5rem', letterSpacing: '0.05em' }}>
+                    <div style={{ fontSize: '0.6875rem', fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '0.5rem', letterSpacing: '0.05em' }}>
                       Top Feature Drivers (Log-Odds Impact)
                     </div>
                     <div style={{ height: '180px', width: '100%' }}>
@@ -605,7 +605,7 @@ export const RetrospectiveScoringPage: React.FC = () => {
                           data={scoreResult.feature_contributions}
                           margin={{ top: 0, right: 15, left: 65, bottom: 0 }}
                         >
-                          <XAxis type="number" stroke="var(--text-muted)" fontSize={10} />
+                          <XAxis type="number" stroke="var(--text-muted)" fontSize={10} tick={{ fill: 'var(--text-secondary)' }} />
                           <YAxis
                             dataKey="feature"
                             type="category"
@@ -614,14 +614,14 @@ export const RetrospectiveScoringPage: React.FC = () => {
                             tick={{ fill: 'var(--text-secondary)' }}
                           />
                           <Tooltip
-                            contentStyle={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-color)', color: 'var(--text-primary)', fontSize: '11px' }}
+                            contentStyle={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '6px', color: '#17243A', fontSize: '11px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.08)' }}
                             formatter={(val: any) => [Number(val).toFixed(4), 'Contribution']}
                           />
                           <Bar dataKey="contribution" radius={[2, 2, 2, 2]}>
                             {scoreResult.feature_contributions.map((entry, index) => (
                               <Cell
                                 key={`cell-${index}`}
-                                fill={entry.direction === 'increases_risk' ? '#ff4757' : '#00f5a0'}
+                                fill={entry.direction === 'increases_risk' ? '#DC2626' : '#059669'}
                               />
                             ))}
                           </Bar>
@@ -771,10 +771,10 @@ export const RetrospectiveScoringPage: React.FC = () => {
                   {} as Record<string, number>
                 );
                 const pieData = [
-                  { name: 'Low Risk', value: riskCounts['Low Risk'] || 0, color: '#10b981' },
-                  { name: 'Moderate Risk', value: riskCounts['Moderate Risk'] || 0, color: '#38bdf8' },
-                  { name: 'Elevated Risk', value: riskCounts['Elevated Risk'] || 0, color: '#f59e0b' },
-                  { name: 'High Risk', value: riskCounts['High Risk'] || 0, color: '#ef4444' },
+                  { name: 'Low Risk', value: riskCounts['Low Risk'] || 0, color: '#059669' },
+                  { name: 'Moderate Risk', value: riskCounts['Moderate Risk'] || 0, color: '#0284C7' },
+                  { name: 'Elevated Risk', value: riskCounts['Elevated Risk'] || 0, color: '#D97706' },
+                  { name: 'High Risk', value: riskCounts['High Risk'] || 0, color: '#DC2626' },
                 ].filter((d) => d.value > 0);
 
                 if (pieData.length === 0) return null;
@@ -806,7 +806,7 @@ export const RetrospectiveScoringPage: React.FC = () => {
                               ))}
                             </Pie>
                             <Tooltip
-                              contentStyle={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
+                              contentStyle={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '6px', color: '#17243A', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.08)' }}
                               formatter={(val: any, name: any) => [`${val} loans`, name]}
                             />
                           </PieChart>
@@ -814,13 +814,13 @@ export const RetrospectiveScoringPage: React.FC = () => {
                       </div>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                         {pieData.map((tier) => (
-                          <div key={tier.name} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg-input)', padding: '0.625rem 0.875rem', borderRadius: '0.375rem', border: '1px solid var(--border-color)' }}>
+                          <div key={tier.name} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg-surface-elevated)', padding: '0.625rem 0.875rem', borderRadius: '0.375rem', border: '1px solid var(--border-color)' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                               <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: tier.color }} />
                               <span style={{ fontSize: '0.8125rem', fontWeight: 600 }}>{tier.name}</span>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                              <span style={{ fontSize: '0.875rem', fontWeight: 700 }}>{tier.value} loans</span>
+                              <span style={{ fontSize: '0.875rem', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>{tier.value} loans</span>
                               <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                                 ({((tier.value / batchResult.total_records) * 100).toFixed(1)}%)
                               </span>

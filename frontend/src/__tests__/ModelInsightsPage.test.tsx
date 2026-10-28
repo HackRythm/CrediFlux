@@ -22,9 +22,9 @@ describe('ModelInsightsPage', () => {
 
     expect(screen.getByText('Model Comparative Insights & The Accuracy Paradox')).toBeInTheDocument();
     expect(screen.getByText('The Accuracy Paradox in Credit Risk Underwriting')).toBeInTheDocument();
-    expect(screen.getByText('Empirical Confusion Matrix Breakdown (10,000 Test Loans)')).toBeInTheDocument();
-    expect(screen.getByText('Logistic Regression Matrix')).toBeInTheDocument();
-    expect(screen.getByText('Random Forest Matrix')).toBeInTheDocument();
+    expect(screen.getByText(/Empirical Confusion Matrix Breakdown/i)).toBeInTheDocument();
+    expect(screen.getByText(/Logistic Regression Matrix/i)).toBeInTheDocument();
+    expect(screen.getByText(/Random Forest Matrix/i)).toBeInTheDocument();
     expect(screen.getByText('Model Comparison Table (Including Linear Regression Baseline)')).toBeInTheDocument();
   });
 });

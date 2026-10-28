@@ -75,14 +75,15 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({ profile, onUpdateProfi
                     padding: '0.375rem 0.5rem',
                     borderRadius: '0.25rem',
                     fontSize: '0.75rem',
-                    backgroundColor: profile.role === r ? 'rgba(0, 212, 170, 0.1)' : 'transparent',
+                    backgroundColor: profile.role === r ? 'var(--accent-teal-subtle)' : 'transparent',
                     color: profile.role === r ? 'var(--accent-teal)' : 'var(--text-secondary)',
+                    fontWeight: profile.role === r ? 600 : 500,
                     textAlign: 'left',
                   }}
                   onClick={() => onUpdateProfile({ role: r })}
                 >
                   <span>{r}</span>
-                  {profile.role === r && <Check size={14} />}
+                  {profile.role === r && <Check size={14} color="var(--accent-teal)" />}
                 </button>
               ))}
             </div>
@@ -99,12 +100,13 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({ profile, onUpdateProfi
                   type="button"
                   style={{
                     flex: 1,
-                    padding: '0.25rem 0.375rem',
+                    padding: '0.35rem 0.375rem',
                     borderRadius: '0.25rem',
                     fontSize: '0.6875rem',
-                    border: '1px solid var(--border-color)',
-                    backgroundColor: profile.riskTolerance === t ? 'var(--bg-surface-elevated)' : 'transparent',
-                    color: profile.riskTolerance === t ? 'var(--accent-teal)' : 'var(--text-muted)',
+                    fontWeight: profile.riskTolerance === t ? 600 : 500,
+                    border: profile.riskTolerance === t ? '1px solid var(--accent-teal-border)' : '1px solid var(--border-color)',
+                    backgroundColor: profile.riskTolerance === t ? 'var(--accent-teal-subtle)' : 'var(--bg-surface)',
+                    color: profile.riskTolerance === t ? 'var(--accent-teal)' : 'var(--text-secondary)',
                     textAlign: 'center',
                   }}
                   onClick={() => onUpdateProfile({ riskTolerance: t })}
